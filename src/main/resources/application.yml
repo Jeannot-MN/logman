@@ -1,0 +1,19 @@
+app:
+  security:
+    jwt:
+      expiration-ms: 7200000
+      secret: dAm8#uba668aFMNbusp123231sfd34fss1723!%20220712
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      jdbc-url: jdbc:postgresql://localhost:5432/postgres
+      password: password
+      username: postgres
+    url: jdbc:postgresql://localhost:5432/postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher

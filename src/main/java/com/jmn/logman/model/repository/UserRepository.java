@@ -13,4 +13,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
             "where lower(user.username) = lower(:username)\n" +
             "or lower(user.email) = lower(:email)")
     User findByEmailOrUsernameIgnoreCase(@Param("email") String email, @Param("username") String username);
+
+    User findByUsername(String username);
 }
