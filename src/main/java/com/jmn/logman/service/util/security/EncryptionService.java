@@ -16,8 +16,8 @@ public class EncryptionService {
 
     private final Key secretKey;
 
-    public EncryptionService(@Value("${app.security.encryption.algorithm}") String algorithm
-            , @Value("${app.security.encryption.secret}") String secret) {
+    public EncryptionService(@Value("${app.security.encryption.algorithm:null}") String algorithm
+            , @Value("${app.security.encryption.secret:null}") String secret) {
         this.algorithm = algorithm;
         this.secretKey = new SecretKeySpec(secret.getBytes(), algorithm);
     }
