@@ -3,11 +3,12 @@ package com.jmn.logman.service.bpm.model;
 import com.jmn.logman.service.bpm.common.ProcessTypes;
 import com.jmn.logman.service.security.jwt.ApplicationUserDetails;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public abstract class ProcessRequest {
+public abstract class ProcessRequest implements Serializable {
 
     private String processInstanceId;
 

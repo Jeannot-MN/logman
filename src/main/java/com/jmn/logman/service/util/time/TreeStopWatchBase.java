@@ -3,11 +3,12 @@ package com.jmn.logman.service.util.time;
 import org.springframework.lang.NonNull;
 import org.springframework.util.StopWatch;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public abstract class TreeStopWatchBase<T extends TreeStopWatchBase> extends StopWatch {
+public abstract class TreeStopWatchBase<T extends TreeStopWatchBase> extends StopWatch implements Serializable {
 
     private final String name;
     private String currentTask;

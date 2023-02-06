@@ -49,18 +49,9 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests().requestMatchers("/"
                         , "/auth/token"
-                        , "/actuator/**"
-                        , "/graphql/**"
-                        , "/graphiql/**"
-                        , "/playground/**"
-                        , "/vendor/**"
-                        , "/subscription/**"
-                        , "/subscriptions/**"
-                        , "/swagger-ui.html"
-                        , "/v2/api-docs"
-                        , "/loc8/api/billing/**"
-                        , "/loc8/api/leads/webhook/**"
+                        , "/api/v1/users/register"
                         , "/public/**"
+                        , "/error/**"
                 ).permitAll()
 
                 .anyRequest().authenticated()

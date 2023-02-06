@@ -2,9 +2,10 @@ package com.jmn.logman.model;
 
 import jakarta.persistence.Column;
 
+import java.io.Serializable;
 import java.time.Instant;
 
-public abstract class BaseEntity {
+public abstract class BaseEntity implements Serializable {
 
     @Column(name = "created_on")
     private Instant createdOn;

@@ -10,10 +10,19 @@ spring:
       jdbc-url: jdbc:postgresql://localhost:5432/postgres
       password: password
       username: postgres
+      schema: app
     url: jdbc:postgresql://localhost:5432/postgres
-  jpa:
-    hibernate:
-      ddl-auto: update
+  flyway:
+    enabled: true
+    locations: migration
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.hikari.username}
+    password: ${spring.datasource.hikari.password}
+    schemas: public
+
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+server:
+  error:
+    include-message: always
