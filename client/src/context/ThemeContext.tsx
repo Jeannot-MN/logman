@@ -1,6 +1,6 @@
 import {ThemeProvider} from '@mui/material';
 import * as React from 'react';
-import {theme} from '../../theme/Theme';
+import {theme} from '../theme/Theme';
 
 //import { theme } from '../theme/Theme';
 

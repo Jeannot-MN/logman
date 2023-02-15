@@ -63,10 +63,14 @@ public class SaveUserTask extends AbstractApplicationBpmTask {
         } else {
             newUser.setPassword(passwordEncoder.encode(request.getPassword()));
         }*/
-        //TODO: May be sometimes will ask the password from the users themselves
-        String plainTextPassword = PasswordGenerator.generate();
-        request.setPlainTextPassword(plainTextPassword);
-        LOG.info("New user password: {}", plainTextPassword);
+        String plainTextPassword;
+        if (StringUtils.trimToEmpty(request.getPlainTextPassword()).isEmpty()) {
+            plainTextPassword = PasswordGenerator.generate();
+            request.setPlainTextPassword(plainTextPassword);
+            LOG.info("New user password: {}", plainTextPassword);
+        } else {
+            plainTextPassword = request.getPlainTextPassword();
+        }
         newUser.setPassword(passwordEncoder.encode(plainTextPassword));
 
         LOG.info("Attempting to save user: {}", newUser);

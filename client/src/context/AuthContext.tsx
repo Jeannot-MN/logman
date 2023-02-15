@@ -1,12 +1,14 @@
 import jwtDecode from 'jwt-decode';
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import useLocalStorage from 'react-use/lib/useLocalStorage';
-import { useLoginMutation } from "../generated/graphql";
-import { Toast } from '../modules/Toast/Toast';
-import { Role } from "../types";
+// import { Toast } from '../modules/Toast/Toast';
 
 interface Props {
     children: JSX.Element
+}
+
+interface Role {
+    authority: string
 }
 
 export function AuthContextProvider({ children }: Props) {
@@ -24,14 +26,14 @@ export function AuthContextProvider({ children }: Props) {
         return localAuth;
     });
 
-    const [login] = useLoginMutation();
+    // const [login] = useLoginMutation();
 
     const handleLogin = useCallback(
         async function (username: string, password: string) {
             loggingOut.current = false;
 
             try {
-                const result = await login({
+                /*const result = await login({
                     variables: {
                         input: {
                             email: username,
@@ -72,15 +74,15 @@ export function AuthContextProvider({ children }: Props) {
                         'error',
                         'Something went wrong! Please ensure that your username and password are correct'
                     );
-                }
+                }*/
             } catch (e) {
-                Toast(
-                    'error',
+                alert(
+                    'error: '+
                     'Something went wrong! Please ensure that your username and password are correct'
                 );
             }
         },
-        [setLocalAuth, login]
+        [setLocalAuth]
     );
 
     const handleLogout = useCallback(() => {
@@ -119,7 +121,7 @@ export function AuthContextProvider({ children }: Props) {
                 return false;
             }
             if (
-                auth.roles?.indexOf(Role.ADMIN) !== -1 ||
+                /*auth.roles?.indexOf(Role.ADMIN) !== -1 ||*/
                 auth.roles?.indexOf(role) !== -1
             ) {
                 return true;
@@ -155,7 +157,7 @@ interface UserProps {
     profileImageUri: string;
 }
 
-function parseRoles(roles: RoleProps[]) {
+/*function parseRoles(roles: RoleProps[]) {
     return roles.map((role) => {
         switch (role.name) {
             case Role.ADMIN:
@@ -166,7 +168,7 @@ function parseRoles(roles: RoleProps[]) {
                 return Role.UNKNOWN;
         }
     });
-}
+}*/
 
 
 export const AuthContext = createContext<AuthContextStateType>({
