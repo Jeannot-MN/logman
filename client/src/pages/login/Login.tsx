@@ -31,10 +31,7 @@ export function Login() {
                 onSubmit={async ({email, password}) => {
                     try {
                         const loginResponse: any = await handleLogin(email, password);
-
-                        if (loginResponse && loginResponse.data.login.token) {
-                            navigate('/');
-                        }
+                        navigate('/');
                     } catch (error: any) {
                         console.log(error)
                         Toast('error', error);

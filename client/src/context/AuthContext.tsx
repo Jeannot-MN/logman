@@ -65,6 +65,8 @@ export function AuthContextProvider({ children }: Props) {
 
                 setAuth(newAuth);
                 setLocalAuth(newAuth);
+
+                return result;
             }
         },
         [setLocalAuth]

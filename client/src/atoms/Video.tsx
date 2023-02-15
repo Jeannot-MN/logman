@@ -1,3 +1,4 @@
+/*
 import React from 'react';
 import Box from '@material-ui/core/Box';
 import {createStyles, makeStyles} from '@material-ui/core/styles';
@@ -144,3 +145,5 @@ export function Video({src, name, className}: Props) {
     </Box>
   );
 }
+*/
+export const age = 4;
