@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.ExceptionTranslationFilter;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -31,6 +32,9 @@ public class SecurityConfig {
     @Qualifier("applicationAuthenticationProvider")
     private AuthenticationProvider applicationAuthenticationProvider;
 
+    @Autowired
+    private CustomCorsFilter corsFilter;
+
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http)
             throws Exception {
@@ -42,6 +46,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
         http
                 .authenticationProvider(applicationAuthenticationProvider)
+                .addFilterBefore(corsFilter, ChannelProcessingFilter.class)
                 .csrf().disable()
                 .headers().frameOptions().deny()
                 .and()

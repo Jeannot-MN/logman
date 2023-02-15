@@ -18,8 +18,7 @@ export const theme = createTheme({
       fontSize: '80px',
       lineHeight: '112px',
       fontFamily: 'Poppins',
-      letterSpacing: '-1.5px',
-      color: '#03002d',
+      letterSpacing: '-1.5px'
     },
     h2: {
       fontWeight: 600,
@@ -27,7 +26,6 @@ export const theme = createTheme({
       lineHeight: '72px',
       fontFamily: 'Poppins',
       letterSpacing: '-0.5px',
-      color: '#03002d',
     },
     h3: {
       fontWeight: 600,
@@ -35,7 +33,6 @@ export const theme = createTheme({
       lineHeight: '56px',
       fontFamily: 'Poppins',
       letterSpacing: '0',
-      color: '#03002d',
     },
     h4: {
       fontWeight: 600,
@@ -43,7 +40,6 @@ export const theme = createTheme({
       lineHeight: '40px',
       fontFamily: 'Poppins',
       letterSpacing: '0.25px',
-      color: '#03002d',
     },
     h5: {
       fontWeight: 600,
@@ -51,7 +47,6 @@ export const theme = createTheme({
       lineHeight: '32px',
       fontFamily: 'Poppins',
       letterSpacing: '0',
-      color: '#03002d',
     },
     h6: {
       fontWeight: 600,
@@ -59,7 +54,6 @@ export const theme = createTheme({
       lineHeight: '24px',
       fontFamily: 'Poppins',
       letterSpacing: '0.15px',
-      color: '#03002d',
     },
     button: {
       fontFamily: 'Poppins',
@@ -77,7 +71,6 @@ export const theme = createTheme({
       fontSize: '16px',
       lineHeight: '24px',
       letterSpacing: '0.444444px',
-      color: '#808080',
     },
     body2: {
       fontFamily: 'Poppins',
@@ -86,7 +79,6 @@ export const theme = createTheme({
       fontSize: '14px',
       lineHeight: '20px',
       letterSpacing: '0.25px',
-      color: '#808080',
     },
   },
   components:{

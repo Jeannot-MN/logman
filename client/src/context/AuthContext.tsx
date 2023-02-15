@@ -2,14 +2,20 @@ import jwtDecode from 'jwt-decode';
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import useLocalStorage from 'react-use/lib/useLocalStorage';
 import {Toast} from "../modules/Toast/Toast";
+import {getApiServerUrl} from "../services/Utils";
+import {Role} from "../types/types";
 // import { Toast } from '../modules/Toast/Toast';
 
 interface Props {
     children: JSX.Element
 }
 
-interface Role {
-    authority: string
+interface LoginResponse {
+    access_token: string,
+    token_type: string,
+    expires_in: number,
+    scope: string,
+    jti: string
 }
 
 export function AuthContextProvider({ children }: Props) {
@@ -21,8 +27,6 @@ export function AuthContextProvider({ children }: Props) {
     });
 
     const [auth, setAuth] = useState<AuthContextType | undefined>(() => {
-        console.log(localAuth);
-
         authTokenLoaded.current = true;
         return localAuth;
     });
@@ -32,51 +36,36 @@ export function AuthContextProvider({ children }: Props) {
     const handleLogin = useCallback(
         async function (username: string, password: string) {
             loggingOut.current = false;
-                /*const result = await login({
-                    variables: {
-                        input: {
-                            email: username,
-                            password: password
-                        }
-                    }
-                })
+            const result = await fetch(`${getApiServerUrl()}/auth/token`,{
+                method: 'POST',
+                headers:{
+                    "Authorization": `Basic ${btoa(username+':'+password)}`
+                }
+            })
 
-                if (result && result.data) {
-                    const token = result.data.login.token;
+            if(result.ok){
+                const data = (await result.json()) as LoginResponse;
+                const token = data.access_token;
 
-                    const decoded = jwtDecode(token) as {
-                        email: string;
-                        roles: RoleProps[],
-                        exp: number
-                    };
+                const decoded = jwtDecode(token) as {
+                    exp: number,
+                    iat: number,
+                    client_id: string,
+                    authorities: RoleProps[],
+                };
 
-                    const newAuth: AuthContextType = {
-                        authenticated: true,
-                        token,
-                        roles: decoded.roles
-                            ? parseRoles(decoded.roles)
-                            : [Role.UNKNOWN],
-                        expiration: decoded.exp,
-                        user: {
-                            id: result.data.login.user.id,
-                            name: result.data.login.user.name,
-                            profileImageUri: result.data.login.user.profileImageUri || ''
-                        }
-                    };
+                const newAuth: AuthContextType = {
+                    authenticated: true,
+                    token,
+                    roles: decoded.authorities
+                        ? parseRoles(decoded.authorities)
+                        : [],
+                    expiration: decoded.exp,
+                };
 
-                    setAuth(newAuth);
-                    setLocalAuth(newAuth);
-
-                    return result;
-                } else {
-                    Toast(
-                        'error',
-                        'Something went wrong! Please ensure that your username and password are correct'
-                    );
-                }*/
-                await new Promise((res, rej) => {
-                    setTimeout(()=>{rej("Invalid Credentials.",)}, 1000);
-                })
+                setAuth(newAuth);
+                setLocalAuth(newAuth);
+            }
         },
         [setLocalAuth]
     );
@@ -143,8 +132,7 @@ export function AuthContextProvider({ children }: Props) {
 }
 
 interface RoleProps {
-    name: string;
-    description: string;
+    authority: string;
 }
 
 interface UserProps {
@@ -153,18 +141,22 @@ interface UserProps {
     profileImageUri: string;
 }
 
-/*function parseRoles(roles: RoleProps[]) {
+function parseRoles(roles: RoleProps[]) {
     return roles.map((role) => {
-        switch (role.name) {
-            case Role.ADMIN:
-                return Role.ADMIN;
-            case Role.SELLER:
-                return Role.SELLER;
+        switch (role.authority) {
+            case Role.SYSTEM_ADMIN:
+                return Role.SYSTEM_ADMIN;
+            case Role.COMPANY_ADMIN:
+                return Role.COMPANY_ADMIN;
+            case Role.DRIVER:
+                return Role.DRIVER;
+            case Role.ACCOUNTANT:
+                return Role.ACCOUNTANT;
             default:
                 return Role.UNKNOWN;
         }
     });
-}*/
+}
 
 
 export const AuthContext = createContext<AuthContextStateType>({
@@ -180,7 +172,6 @@ export type AuthContextType =
         authenticated: true;
         roles?: Role[];
         expiration: number;
-        user: UserProps
     }
     | {
         authenticated: false;

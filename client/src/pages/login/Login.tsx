@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useAuthContext} from "../../context/AuthContext";
 import {Box, Button, Link, Typography} from "@mui/material";
 import {Form, Formik} from "formik";
@@ -9,6 +9,7 @@ import {FTextField} from "../../modules/FMaterial/FTextfield/FTextField";
 import {FTextFieldPassword} from "../../modules/FMaterial/FTextfield/FTextFieldPassword";
 import FormItem from "../../atoms/FormItem";
 import LoginPageImage from '../../assets/LoginPageImage.jpg';
+import {getApiServerUrl} from "../../services/Utils";
 
 const signInSchema = yup.object().shape({
     email: yup.string().required('Email is required.'),
@@ -30,7 +31,6 @@ export function Login() {
                 onSubmit={async ({email, password}) => {
                     try {
                         const loginResponse: any = await handleLogin(email, password);
-                        console.log(loginResponse);
 
                         if (loginResponse && loginResponse.data.login.token) {
                             navigate('/');

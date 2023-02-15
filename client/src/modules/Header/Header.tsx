@@ -12,6 +12,12 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { useAuthContext } from '../../context/AuthContext';
 import { useScreenSize } from '../../hooks/useScreenSize';
+import GroupIcon from '@mui/icons-material/Group';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+import ArticleIcon from '@mui/icons-material/Article';
 
 import {
     AppBar, Avatar, Badge,
@@ -19,13 +25,25 @@ import {
     Button, createStyles,
     CssBaseline, Divider,
     Drawer,
-    IconButton, List, ListItem, ListItemIcon, ListItemText, Theme,
+    IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Theme,
     Toolbar,
     Typography
     , useTheme,
     withStyles
 } from "@mui/material";
 import { makeStyles } from 'tss-react/mui';
+import ExpandListItem from "../ExpandListItem/ExpandListItem";
+import BusinessIcon from '@mui/icons-material/Business';
+import ApartmentIcon from '@mui/icons-material/Apartment';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import GpsFixedIcon from '@mui/icons-material/GpsFixed';
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import RouteIcon from '@mui/icons-material/Route';
+import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
+import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import CategoryIcon from '@mui/icons-material/Category';
 
 const drawerWidth = 300;
 
@@ -79,6 +97,9 @@ const useStyles = makeStyles()((theme) => {
                 duration: theme.transitions.duration.enteringScreen,
             }),
             overflowX: 'hidden',
+            '&::-webkit-scrollbar':{
+                display: 'none'
+            }
         },
         drawerClose: {
             transition: theme.transitions.create('width', {
@@ -95,7 +116,7 @@ const useStyles = makeStyles()((theme) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'flex-end',
-            height: '100px',
+            height: '72.5px',
             padding: theme.spacing(0, 1),
         },
         content: {
@@ -120,7 +141,6 @@ export function Header() {
     const isDesktop = useScreenSize(600);
     const { auth, handleLogout } = useAuthContext();
     const [open, setOpen] = React.useState(false);
-    const [selectedIndex, setSelectedIndex] = React.useState(0);
 
     const handleDrawerClose = () => {
         setOpen(false);
@@ -136,8 +156,6 @@ export function Header() {
         index: number
     ) => {
         navigate(location);
-        setSelectedIndex(index);
-        // setSubSelectedIndex(0);
         handleDrawerClose();
     };
 
@@ -264,11 +282,7 @@ export function Header() {
                 open={open}
                 anchor="left"
                 variant={
-                    auth.authenticated
-                        ? isDesktop
-                            ? 'permanent'
-                            : 'temporary'
-                        : 'temporary'
+                     'temporary'
                 }
                 className={clsx(classes.drawer, {
                     [classes.drawerOpen]: open,
@@ -294,51 +308,116 @@ export function Header() {
 
                 {auth.authenticated ? (
                     <List style={{ height: '100%' }}>
-                        <ListItem
-                            selected={selectedIndex === 2}
-                            button
-                            onClick={(event) => {
-                                handleNavigation('/products', event, 2);
-                            }}
-                        >
-                            <ListItemIcon>
-                                <IconButton aria-label="My Products">
-                                    <ListIcon />
-                                </IconButton>
-                            </ListItemIcon>
-                            <ListItemText primary="My Products" />
-                        </ListItem>
+                        <ExpandListItem title={"Admin"}>
+                            <ListItemButton sx={{pl: 4}}>
+                                <ListItemIcon>
+                                    <BusinessIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="Company"/>
+                            </ListItemButton>
 
-                        <ListItem
-                            selected={selectedIndex === 3}
-                            button
-                            onClick={(event) => {
-                                handleNavigation('/purchases', event, 3);
-                            }}
-                        >
-                            <ListItemIcon>
-                                <IconButton aria-label="Purchases">
-                                    <ShoppingCartIcon />
-                                </IconButton>
-                            </ListItemIcon>
-                            <ListItemText primary="Purchases" />
-                        </ListItem>
+                            <ListItemButton sx={{pl: 4}}>
+                                <ListItemIcon>
+                                    <ApartmentIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="Departments"/>
+                            </ListItemButton>
 
-                        <ListItem
-                            selected={selectedIndex === 4}
-                            button
-                            onClick={(event) => {
+                            <ListItemButton sx={{pl: 4}}>
+                                <ListItemIcon>
+                                    <GpsFixedIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="Sites"/>
+                            </ListItemButton>
+
+                            <ListItemButton sx={{pl: 4}}>
+                                <ListItemIcon>
+                                    <GroupIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="Users"/>
+                            </ListItemButton>
+
+                            <ListItemButton sx={{pl: 4}}>
+                                <ListItemIcon>
+                                    <AccessTimeIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="Shifts"/>
+                            </ListItemButton>
+
+                            <ListItemButton sx={{pl: 4}}>
+                                <ListItemIcon>
+                                    <LocalShippingIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="Vehicles"/>
+                            </ListItemButton>
+                        </ExpandListItem>
+                        <ExpandListItem title={"Resources"}>
+                            <ListItemButton sx={{pl: 4}}>
+                                <ListItemIcon>
+                                    <UploadFileIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="Upload Document"/>
+                            </ListItemButton>
+
+                            <ListItemButton sx={{pl: 4}}>
+                                <ListItemIcon>
+                                    <ArticleIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="View Documents"/>
+                            </ListItemButton>
+                        </ExpandListItem>
+                        <ExpandListItem title={"Logistics"}>
+                            <ListItemButton sx={{pl: 4}}>
+                                <ListItemIcon>
+                                    <LocalShippingIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="Deliveries"/>
+                            </ListItemButton>
+
+                            <ListItemButton sx={{pl: 4}}>
+                                <ListItemIcon>
+                                    <RouteIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="Routes"/>
+                            </ListItemButton>
+
+                            <ListItemButton sx={{pl: 4}}>
+                                <ListItemIcon>
+                                    <CategoryIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="Item Management"/>
+                            </ListItemButton>
+
+                            <ListItemButton sx={{pl: 4}}>
+                                <ListItemIcon>
+                                    <StorefrontIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="Order Request"/>
+                            </ListItemButton>
+
+                            <ListItemButton sx={{pl: 4}}>
+                                <ListItemIcon>
+                                    <PriorityHighIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="Alerts"/>
+                            </ListItemButton>
+
+                            <ListItemButton sx={{pl: 4}}>
+                                <ListItemIcon>
+                                    <SignalCellularAltIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="Reports"/>
+                            </ListItemButton>
+                        </ExpandListItem>
+                        <ListItemButton
+                            onClick={()=>{
                                 handleLogout();
-                                navigate('/login');
-                            }}
+                                navigate('/login');}
+                            }
                         >
-                            <ListItemIcon>
-                                <IconButton aria-label="Logout">
-                                    <ExitToAppIcon />
-                                </IconButton>
-                            </ListItemIcon>
-                            <ListItemText primary="Logout" />
-                        </ListItem>
+                            <ListItemText primary="Logout"/>
+                            <ExitToAppIcon/>
+                        </ListItemButton>
                     </List>
                 ) : null}
 
@@ -346,7 +425,6 @@ export function Header() {
                     <List style={{ display: 'flex', justifyContent: 'flex-end' }}>
                         <ListItem
                             style={{ paddingRight: '48px' }}
-                            selected={selectedIndex === 6}
                             button
                             onClick={(event) => {
                                 handleNavigation('/profile', event, 6);
@@ -356,8 +434,10 @@ export function Header() {
                                 <Suspense fallback="Loading..">
                                     <Box>
                                         <Avatar
-                                            src={auth.user.profileImageUri || ''}
-                                            alt={auth.user.profileImageUri || ''}
+                                            /*src={auth.user.profileImageUri || ''}
+                                            alt={auth.user.profileImageUri || ''}*/
+                                            src={''}
+                                            alt={''}
                                         />
                                     </Box>
                                 </Suspense>

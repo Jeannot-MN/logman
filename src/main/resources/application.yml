@@ -1,5 +1,7 @@
 app:
   security:
+    cors:
+      allowed-urls: "*"
     jwt:
       expiration-ms: 7200000
       secret: dAm8#uba668aFMNbusp123231sfd34fss1723!%20220712
