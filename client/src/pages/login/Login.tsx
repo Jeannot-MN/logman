@@ -3,7 +3,7 @@ import {useAuthContext} from "../../context/AuthContext";
 import {Box, Button, Link, Typography} from "@mui/material";
 import {Form, Formik} from "formik";
 import * as yup from 'yup';
-import { useNavigate } from 'react-router';
+import {useNavigate} from 'react-router';
 import {Toast} from "../../modules/Toast/Toast";
 import {FTextField} from "../../modules/FMaterial/FTextfield/FTextField";
 import {FTextFieldPassword} from "../../modules/FMaterial/FTextfield/FTextFieldPassword";
@@ -15,9 +15,9 @@ const signInSchema = yup.object().shape({
     password: yup.string().required('Password is required.'),
 });
 
-export function Login(){
+export function Login() {
     const navigate = useNavigate();
-    const { auth, handleLogin, hasRole } = useAuthContext();
+    const {auth, handleLogin, hasRole} = useAuthContext();
 
     return (
         <Box display="flex" justifyContent="center">
@@ -27,7 +27,7 @@ export function Login(){
                     password: '',
                 }}
                 validationSchema={signInSchema}
-                onSubmit={async ({ email, password }) => {
+                onSubmit={async ({email, password}) => {
                     try {
                         const loginResponse: any = await handleLogin(email, password);
                         console.log(loginResponse);
@@ -36,16 +36,17 @@ export function Login(){
                             navigate('/');
                         }
                     } catch (error: any) {
-                        Toast('error', error.message);
+                        console.log(error)
+                        Toast('error', error);
                     }
                 }}
             >
-                {({ submitForm }) => {
+                {({submitForm}) => {
                     return (
                         <Box width="100%" display={'flex'}>
                             <Box width="50%" display="flex" justifyContent="center" alignItems="center">
                                 <Form
-                                    style={{ display: 'flex', justifyContent: 'center' }}
+                                    style={{display: 'flex', justifyContent: 'center'}}
                                     onKeyDown={(event) => {
                                         if (event.keyCode === 13) {
                                             event.preventDefault();
@@ -65,9 +66,8 @@ export function Login(){
 
                                         <FormItem>
                                             <FTextField
-                                                size={"medium"}
                                                 fullWidth
-                                                field={{ name: 'email' }}
+                                                field={{name: 'email'}}
                                                 label="Email"
                                                 placeholder="Email"
                                             />
@@ -97,17 +97,19 @@ export function Login(){
                                                 Log In
                                             </Button>
                                         </FormItem>
-                                        <Box display="flex" justifyContent="center" pb={3}>
-                                            <Link
-                                                component={'button'}
-                                                color="secondary"
-                                                onClick={() => {
-                                                    navigate('/forgotpassword');
-                                                }}
-                                            >
-                                                Forgot Password?
-                                            </Link>
-                                        </Box>
+                                        <FormItem>
+                                            <Box display="flex" justifyContent="end" pb={3}>
+                                                <Link
+                                                    component={'button'}
+                                                    color="secondary"
+                                                    onClick={() => {
+                                                        navigate('/forgotpassword');
+                                                    }}
+                                                >
+                                                    Forgot Password?
+                                                </Link>
+                                            </Box>
+                                        </FormItem>
                                         {/*<Typography style={{ textAlign: 'center', color: 'black' }}>
                                         Don&apos;t have an account?
                                     </Typography>

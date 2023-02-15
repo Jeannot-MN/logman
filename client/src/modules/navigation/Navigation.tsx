@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import {Login} from "../../pages/login/Login";
 import {Header} from "../Header/Header";
 import { makeStyles } from 'tss-react/mui';
+import {ForgotPassword} from "../../pages/forgot-password/ForgotPassword";
 
 
 const useStyles = makeStyles()((theme) => {
@@ -24,6 +25,7 @@ export function Navigation() {
             <Header/>
             <Routes>
                 <Route path="/login" element={<Login />} />
+                <Route path="/forgotpassword" element={<ForgotPassword />} />
             </Routes>
         </Box>
     )

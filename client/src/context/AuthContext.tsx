@@ -1,6 +1,7 @@
 import jwtDecode from 'jwt-decode';
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import useLocalStorage from 'react-use/lib/useLocalStorage';
+import {Toast} from "../modules/Toast/Toast";
 // import { Toast } from '../modules/Toast/Toast';
 
 interface Props {
@@ -31,8 +32,6 @@ export function AuthContextProvider({ children }: Props) {
     const handleLogin = useCallback(
         async function (username: string, password: string) {
             loggingOut.current = false;
-
-            try {
                 /*const result = await login({
                     variables: {
                         input: {
@@ -75,12 +74,9 @@ export function AuthContextProvider({ children }: Props) {
                         'Something went wrong! Please ensure that your username and password are correct'
                     );
                 }*/
-            } catch (e) {
-                alert(
-                    'error: '+
-                    'Something went wrong! Please ensure that your username and password are correct'
-                );
-            }
+                await new Promise((res, rej) => {
+                    setTimeout(()=>{rej("Invalid Credentials.",)}, 1000);
+                })
         },
         [setLocalAuth]
     );
