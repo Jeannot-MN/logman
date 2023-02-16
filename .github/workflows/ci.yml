@@ -12,12 +12,11 @@ jobs:
         run: pwd
       - name: What is here
         run: ls
-      - name: Go to client directory
-        run: cd client
-      - name: Install Dependencies
-        run: yarn install
-      - name: Build Project
-        run: yarn build
+      - name: Build client
+        run: |
+          cd client
+          yarn install
+          yarn build
   #build-server:
   client-docker-image:
     runs-on: ubuntu-latest
