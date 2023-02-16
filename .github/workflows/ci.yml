@@ -20,7 +20,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build
-          path: client/build/
+          path: client/build
           
       - name: Save dockerfile as artifact
         uses: actions/upload-artifact@v3
