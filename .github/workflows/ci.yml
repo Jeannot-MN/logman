@@ -16,19 +16,11 @@ jobs:
           yarn build
           ls
           
-      
-        
-      - name: what now
-        run: |
-          pwd
-          ls
-          
-      - name: Deploy Image
+      - name: Deploy client image
         run: |
           cd client
           ls
           echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-          cd build
           docker build . -t jeannoel74/logman-client
           docker push jeannoel74/logman-client
           
