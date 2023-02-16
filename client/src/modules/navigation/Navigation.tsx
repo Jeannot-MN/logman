@@ -4,6 +4,7 @@ import {Login} from "../../pages/login/Login";
 import {Header} from "../Header/Header";
 import { makeStyles } from 'tss-react/mui';
 import {ForgotPassword} from "../../pages/forgot-password/ForgotPassword";
+import {Home} from "../../pages/home/Home";
 
 
 const useStyles = makeStyles()((theme) => {
@@ -24,6 +25,7 @@ export function Navigation() {
         <Box className={classes.root}>
             <Header/>
             <Routes>
+                <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/forgotpassword" element={<ForgotPassword />} />
             </Routes>
