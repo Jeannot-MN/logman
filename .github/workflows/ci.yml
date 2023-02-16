@@ -36,6 +36,7 @@ jobs:
         run: |
           whoami
           mkdir build
+          chmod 777 /build
       - name: Download build folder
         uses: actions/download-artifact@v3
         with:
