@@ -1,35 +1,34 @@
-import React, {Suspense, useContext} from 'react';
+import React, {Suspense} from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ListIcon from '@mui/icons-material/List';
 import {useNavigate} from 'react-router';
 import clsx from 'clsx';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import {useAuthContext} from '../../context/AuthContext';
 import {useScreenSize} from '../../hooks/useScreenSize';
 import GroupIcon from '@mui/icons-material/Group';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import FileUploadIcon from '@mui/icons-material/FileUpload';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import ArticleIcon from '@mui/icons-material/Article';
 
 import {
-    AppBar, Avatar, Badge,
+    AppBar,
+    Avatar,
     Box,
-    Button, createStyles,
-    CssBaseline, Divider,
+    Button,
+    CssBaseline,
+    Divider,
     Drawer,
-    IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Theme,
+    IconButton,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
     Toolbar,
-    Typography
-    , useTheme,
-    withStyles
+    Typography,
+    useTheme
 } from "@mui/material";
 import {makeStyles} from 'tss-react/mui';
 import ExpandListItem from "../ExpandListItem/ExpandListItem";
@@ -37,8 +36,6 @@ import BusinessIcon from '@mui/icons-material/Business';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
 import RouteIcon from '@mui/icons-material/Route';
 import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
@@ -47,17 +44,6 @@ import CategoryIcon from '@mui/icons-material/Category';
 
 const drawerWidth = 300;
 
-/*const StyledBadge = withStyles((theme: Theme) =>
-    createStyles({
-        badge: {
-            right: -3,
-            top: 13,
-            border: `2px solid ${theme.palette.background.paper}`,
-            padding: '0 4px',
-            backgroundColor: '#276552',
-        },
-    })
-)(Badge);*/
 const useStyles = makeStyles()((theme) => {
     return {
         root: {
