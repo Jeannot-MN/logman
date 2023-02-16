@@ -22,13 +22,11 @@ jobs:
           name: build
           path: client/build/
           
-      - name: Deploy client image
-        run: |
-          cd client
-          ls
-          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-          docker build . -t jeannoel74/logman-client
-          docker push jeannoel74/logman-client
+      - name: Save dockerfile as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Dockerfile
+          path: client/Dockerfile
           
   publish-client-docker-image:
     runs-on: ubuntu-latest
@@ -38,6 +36,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build
+      - name: Download docekr file
+        uses: actions/download-artifact@v3
+        with:
+          name: Dockerfile
       - name: Push docker image
         run: |
           ls
