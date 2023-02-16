@@ -1,17 +1,17 @@
-import React, { Suspense, useContext } from 'react';
+import React, {Suspense, useContext} from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ListIcon from '@mui/icons-material/List';
-import { useNavigate } from 'react-router';
+import {useNavigate} from 'react-router';
 import clsx from 'clsx';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import { useAuthContext } from '../../context/AuthContext';
-import { useScreenSize } from '../../hooks/useScreenSize';
+import {useAuthContext} from '../../context/AuthContext';
+import {useScreenSize} from '../../hooks/useScreenSize';
 import GroupIcon from '@mui/icons-material/Group';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
@@ -31,7 +31,7 @@ import {
     , useTheme,
     withStyles
 } from "@mui/material";
-import { makeStyles } from 'tss-react/mui';
+import {makeStyles} from 'tss-react/mui';
 import ExpandListItem from "../ExpandListItem/ExpandListItem";
 import BusinessIcon from '@mui/icons-material/Business';
 import ApartmentIcon from '@mui/icons-material/Apartment';
@@ -97,7 +97,7 @@ const useStyles = makeStyles()((theme) => {
                 duration: theme.transitions.duration.enteringScreen,
             }),
             overflowX: 'hidden',
-            '&::-webkit-scrollbar':{
+            '&::-webkit-scrollbar': {
                 display: 'none'
             }
         },
@@ -139,7 +139,7 @@ export function Header() {
     const {classes} = useStyles();
     const theme = useTheme();
     const isDesktop = useScreenSize(600);
-    const { auth, handleLogout } = useAuthContext();
+    const {auth, handleLogout} = useAuthContext();
     const [open, setOpen] = React.useState(false);
 
     const handleDrawerClose = () => {
@@ -151,9 +151,9 @@ export function Header() {
     };
 
     const handleNavigation = (
-        location: string,
+        location: string/*,
         event: React.MouseEvent<HTMLElement>,
-        index: number
+        index: number*/
     ) => {
         navigate(location);
         handleDrawerClose();
@@ -161,7 +161,7 @@ export function Header() {
 
     return (
         <div className={classes.root}>
-            <CssBaseline />
+            <CssBaseline/>
             <AppBar
                 position="fixed"
                 className={clsx(classes.appBar, {
@@ -187,13 +187,13 @@ export function Header() {
                                 [classes.hide]: open,
                             })}
                         >
-                            <MenuIcon />
+                            <MenuIcon/>
                         </IconButton>
-                     ) : null}
+                    ) : null}
 
                     <IconButton
                         onClick={() => {
-                            navigate('/');
+                            handleNavigation('/');
                         }}
                         className={classes.logo}
                     >
@@ -217,64 +217,15 @@ export function Header() {
                         </Typography>
                     </IconButton>
                     <Box display="flex" justifyContent="flex-end" width="100%">
-                        {auth.authenticated ? (
-                            <Box>
-                                <Typography
-                                    style={{
-                                        color: '#000000',
-                                        fontWeight: 'bold'
-                                    }}
-                                >
-
-                                </Typography>
-                            </Box>
-                        ) : (
-                            <Box>
-                                {isDesktop ? (
-                                    <Box>
-                                        {/*<Button
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={() => {
-                                                navigate('/register');
-                                            }}
-                                        >
-                                            Sign Up
-                                        </Button>*/}
-                                        <Button
-                                            style={{ marginLeft: '5px' }}
-                                            color="primary"
-                                            onClick={() => {
-                                                navigate('/login');
-                                            }}
-                                        >
-                                            Help
-                                        </Button>
-                                    </Box>
-                                ) : (
-                                    <Box>
-                                        <IconButton
-                                            style={{ color: 'white' }}
-                                            aria-label="Sign In"
-                                            onClick={() => {
-                                                navigate('/register');
-                                            }}
-                                        >
-                                            <PersonAddIcon style={{ fontSize: '28px' }} />
-                                        </IconButton>
-                                        <IconButton
-                                            style={{ color: 'white', marginLeft: '10px' }}
-                                            aria-label="Sign Up"
-                                            onClick={() => {
-                                                navigate('/login');
-                                            }}
-                                        >
-                                            <ExitToAppIcon style={{ fontSize: '28px' }} />
-                                        </IconButton>
-                                    </Box>
-                                )}
-                            </Box>
-                        )}
+                        <Button
+                            style={{marginLeft: '5px'}}
+                            color="primary"
+                            onClick={() => {
+                                // navigate('/login');
+                            }}
+                        >
+                            Help
+                        </Button>
                     </Box>
                 </Toolbar>
             </AppBar>
@@ -282,7 +233,7 @@ export function Header() {
                 open={open}
                 anchor="left"
                 variant={
-                     'temporary'
+                    'temporary'
                 }
                 className={clsx(classes.drawer, {
                     [classes.drawerOpen]: open,
@@ -298,16 +249,16 @@ export function Header() {
                 <div className={classes.toolbar}>
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === 'rtl' ? (
-                            <ChevronRightIcon />
+                            <ChevronRightIcon/>
                         ) : (
-                            <ChevronLeftIcon />
+                            <ChevronLeftIcon/>
                         )}
                     </IconButton>
                 </div>
-                <Divider />
+                <Divider/>
 
                 {auth.authenticated ? (
-                    <List style={{ height: '100%' }}>
+                    <List style={{height: '100%'}}>
                         <ExpandListItem title={"Admin"}>
                             <ListItemButton sx={{pl: 4}}>
                                 <ListItemIcon>
@@ -410,10 +361,10 @@ export function Header() {
                             </ListItemButton>
                         </ExpandListItem>
                         <ListItemButton
-                            onClick={()=>{
+                            onClick={() => {
                                 handleLogout();
-                                navigate('/login');}
-                            }
+                                handleNavigation("/login");
+                            }}
                         >
                             <ListItemText primary="Logout"/>
                             <ExitToAppIcon/>
@@ -422,12 +373,12 @@ export function Header() {
                 ) : null}
 
                 {auth.authenticated ? (
-                    <List style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <List style={{display: 'flex', justifyContent: 'flex-end'}}>
                         <ListItem
-                            style={{ paddingRight: '48px' }}
+                            style={{paddingRight: '48px'}}
                             button
                             onClick={(event) => {
-                                handleNavigation('/profile', event, 6);
+                                handleNavigation('/profile');
                             }}
                         >
                             <ListItemIcon>
@@ -442,7 +393,7 @@ export function Header() {
                                     </Box>
                                 </Suspense>
                             </ListItemIcon>
-                            <ListItemText primary="Profile" />
+                            <ListItemText primary="Profile"/>
                         </ListItem>
                     </List>
                 ) : (
