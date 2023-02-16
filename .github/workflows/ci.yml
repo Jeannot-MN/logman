@@ -35,7 +35,7 @@ jobs:
       - name: Build client
         run: |
           whoami
-          chmod 777 ./
+          mkdir build
       - name: Download build folder
         uses: actions/download-artifact@v3
         with:
