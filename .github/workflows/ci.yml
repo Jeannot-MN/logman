@@ -3,23 +3,34 @@ on:
   push:
     branches: [ "master" ]
 jobs:
-  build-client:
+  deploy-client:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Where are we
-        run: pwd
-      - name: What is here
-        run: ls
+        
       - name: Build client
         run: |
           cd client
           yarn install
           yarn build
+          
+      - name: what now
+        run: |
+          pwd
+          ls
+          
+      - name: Deploy Image
+        run: |
+          docker login --username=${{secrets.DOCKER_USERNAME}} --password=${{secrets.DOCKER_PASSWORD}}
+          cd build
+          docker build . -t jeannoel74/logman-client
+          docker push jeannoel74/logman-client
+          
   #build-server:
   client-docker-image:
     runs-on: ubuntu-latest
+    needs: [deploy-client]
     steps:
       - name: Go to build directory
         run: cd build
