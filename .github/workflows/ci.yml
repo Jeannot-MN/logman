@@ -1,0 +1,25 @@
+name: Deploy
+on:
+  push:
+    branches: [ "master" ]
+jobs:
+  build-client:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Go to client directory
+        run: cd client
+      - name: Install Dependencies
+        run: yarn install
+      - name: Build Project
+        run: yarn build
+  #build-server:
+  client-docker-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Go to build directory
+        run: cd build
+      - name: Build docker image
+        run: docker build . -t jeannoel74/logman-client
+      - name: Push docker image
+        run: docker push jeannoel74/logman-client
+  #server: docker-image:
