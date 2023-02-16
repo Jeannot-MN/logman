@@ -16,16 +16,7 @@ jobs:
           yarn build
           ls
           
-      - name: Save build folder
-        uses: actions/upload-artifact@v3
-        with:
-          name: build
-          path: /build
-          
-      - name: Download build folder
-        uses: actions/download-artifact@v3
-        with:
-          name: build
+      
         
       - name: what now
         run: |
@@ -34,6 +25,8 @@ jobs:
           
       - name: Deploy Image
         run: |
+          cd client
+          ls
           echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
           cd build
           docker build . -t jeannoel74/logman-client
