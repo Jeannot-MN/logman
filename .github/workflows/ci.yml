@@ -14,12 +14,13 @@ jobs:
           cd client
           yarn install
           yarn build
+          ls
           
       - name: Save build folder
         uses: actions/upload-artifact@v3
         with:
           name: build
-          path: build
+          path: /build
           
       - name: Download build folder
         uses: actions/download-artifact@v3
