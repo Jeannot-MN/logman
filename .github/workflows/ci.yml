@@ -8,6 +8,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Where are we
+        run: pwd
+      - name: What is here
+        run: ls
       - name: Go to client directory
         run: cd client
       - name: Install Dependencies
