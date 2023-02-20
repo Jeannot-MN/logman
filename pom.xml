@@ -159,7 +159,7 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
                 <executions>
@@ -184,7 +184,7 @@
                         </location>
                     </locations>
                 </configuration>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 
