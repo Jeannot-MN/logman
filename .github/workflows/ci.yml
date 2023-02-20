@@ -38,6 +38,18 @@ jobs:
         run: |
           docker build . -t jeannoel74/logman-server
           docker push jeannoel74/logman-server
+      
+      - name: Restart app
+        uses: appleboy/ssh-action@v0.1.2
+        with:
+          host: ${{secrets.SSH_HOST}}
+          key: ${{secrets.SSH_KEY}}
+          username: ${{ secrets.SSH_USERNAME }}
+          script: |
+            cd ../home
+            docker compose down
+            docker compose pull
+            docker-compose up -d
           
 #      - name: Save build folder as artifact
 #        uses: actions/upload-artifact@v3
