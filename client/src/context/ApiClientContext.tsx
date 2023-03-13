@@ -1,4 +1,4 @@
-import {createContext} from "react";
+import {createContext, useContext} from "react";
 import {Axios} from "axios";
 import {getApiServerUrl} from "../services/Utils";
 import {useAuthContext} from "./AuthContext";
@@ -7,9 +7,11 @@ interface Props {
     children: JSX.Element
 }
 
-export const ApiClientContext = createContext<Axios>(new Axios({
-    baseURL: `${getApiServerUrl()}/api/v1`
-}));
+export interface ApiClientContextType {
+    client: Axios
+}
+
+export const ApiClientContext = createContext<ApiClientContextType|null>(null);
 
 export function ApiClientContextProvider({children}: Props) {
 
@@ -17,12 +19,14 @@ export function ApiClientContextProvider({children}: Props) {
 
     return (
         <ApiClientContext.Provider
-            value={new Axios({
-                baseURL: `${getApiServerUrl()}/api/v1`,
-                headers: {
-                    "Authorization": auth.authenticated ? `Bearer ${auth.token}` : null
-                }
-            })}
+            value={{
+                client: new Axios({
+                    baseURL: `${getApiServerUrl()}/api/v1`,
+                    headers: {
+                        "Authorization": auth.authenticated ? `Bearer ${auth.token}` : null
+                    }
+                })
+            }}
         >
             {children}
         </ApiClientContext.Provider>
